@@ -21,6 +21,7 @@
 
 pub mod car;
 pub mod sandbox;
+pub mod validation;
 
 use std::path::PathBuf;
 use steam;
