@@ -1,5 +1,5 @@
 [package]
-name = "automation"
+name = "zephyrj-automation-tools"
 version = "0.4.4-alpha"
 edition = "2021"
 authors = ["zephyrj <zephyrj@protonmail.com>"]
@@ -7,16 +7,14 @@ authors = ["zephyrj <zephyrj@protonmail.com>"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-steam = { workspace = true }
-utils = { workspace = true }
-tracing =  { workspace = true }
-sha2 = { workspace = true }
-bincode = { workspace = true }
-serde = { workspace = true }
+tracing = "0.1"
+sha2 = "0.10"
+bincode = "1.3.3"
+serde = {version = "1.0", features = ["derive"] }
+directories = "5.0.1"
 
 [target.'cfg(target_os = "windows")'.dependencies]
-directories = { workspace = true }
-whoami = { workspace = true }
+whoami = "1.5.2"
 
 [dependencies.rusqlite]
 version = "0.32.1"

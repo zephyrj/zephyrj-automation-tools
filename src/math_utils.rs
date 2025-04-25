@@ -19,27 +19,8 @@
  * along with zephyrj-automation-tools. If not, see <https://www.gnu.org/licenses/>.
  */
 
-pub mod car;
-pub mod sandbox;
-pub mod validation;
-
-mod types;
-mod steam;
-mod math_utils;
-
-pub use types::*;
-
-use std::path::PathBuf;
-
-pub const STEAM_GAME_NAME: &str = "Automation";
-pub const STEAM_GAME_ID: i64 = 293760;
-
-pub fn is_installed() -> bool {
-    get_install_path().is_dir()
+pub fn round_float_to(float: f64, decimal_places: u32) -> f64 {
+    let precision_base: u64 = 10;
+    let precision_factor = precision_base.pow(decimal_places) as f64;
+    (float * precision_factor).round() / precision_factor
 }
-
-pub fn get_install_path() -> PathBuf {
-    steam::get_game_install_path(STEAM_GAME_NAME)
-}
-
-pub const FIRST_AL_RIMA_VERSION_NUM: f32 = 2412240000.0;

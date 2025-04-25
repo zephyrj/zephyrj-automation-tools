@@ -3,21 +3,22 @@
  * 2025 zephyrj
  * zephyrj@protonmail.com
  *
- * This file is part of engine-crane.
+ * This file is part of zephyrj-automation-tools.
  *
- * engine-crane is free software: you can redistribute it and/or modify
+ * zephyrj-automation-tools is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * engine-crane is distributed in the hope that it will be useful,
+ * zephyrj-automation-tools is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with engine-crane. If not, see <https://www.gnu.org/licenses/>.
+ * along with zephyrj-automation-tools. If not, see <https://www.gnu.org/licenses/>.
  */
+
 use std::collections::HashMap;
 use std::ffi::OsString;
 use std::fmt::{Display, Formatter};
@@ -33,7 +34,7 @@ use directories::{BaseDirs, UserDirs};
 #[cfg(target_os = "linux")]
 use crate::STEAM_GAME_ID;
 
-use utils::numeric::round_float_to;
+use crate::math_utils::round_float_to;
 use crate::types::{AspirationType, BlockConfig, HeadConfig, Valves};
 
 pub struct SandboxLookupData {
@@ -676,7 +677,7 @@ pub fn get_default_legacy_user_data_path() -> PathBuf {
 
 #[cfg(target_os = "linux")]
 pub fn get_default_legacy_user_data_path() -> PathBuf {
-    steam::get_wine_documents_dir(STEAM_GAME_ID).join(PathBuf::from_iter(vec!["My Games", "Automation"]))
+    crate::steam::get_wine_documents_dir(STEAM_GAME_ID).join(PathBuf::from_iter(vec!["My Games", "Automation"]))
 }
 
 #[cfg(target_os = "windows")]
@@ -695,13 +696,13 @@ pub fn get_default_user_data_path() -> PathBuf {
 
 #[cfg(target_os = "linux")]
 pub fn get_default_user_data_path() -> PathBuf {
-    steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(vec!["AutomationGame", "Saved", "UserData"]))
+    crate::steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(vec!["AutomationGame", "Saved", "UserData"]))
 }
 
 
 #[cfg(target_os = "linux")]
 pub fn get_default_legacy_db_path() -> Option<OsString> {
-    let sandbox_path = steam::get_wine_documents_dir(STEAM_GAME_ID).join(PathBuf::from_iter(legacy_sandbox_path()));
+    let sandbox_path = crate::steam::get_wine_documents_dir(STEAM_GAME_ID).join(PathBuf::from_iter(legacy_sandbox_path()));
     match sandbox_path.is_file() {
         true => Some(sandbox_path.into_os_string()),
         false => None
@@ -710,7 +711,7 @@ pub fn get_default_legacy_db_path() -> Option<OsString> {
 
 #[cfg(target_os = "linux")]
 pub fn get_default_db_path_4_2() -> Option<OsString> {
-    let sandbox_path = steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(sandbox_dir_4_2()));
+    let sandbox_path = crate::steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(sandbox_dir_4_2()));
     match sandbox_path.is_file() {
         true => Some(sandbox_path.into_os_string()),
         false => None
@@ -719,7 +720,7 @@ pub fn get_default_db_path_4_2() -> Option<OsString> {
 
 #[cfg(target_os = "linux")]
 pub fn get_default_db_path_ellisbury() -> Option<OsString> {
-    let sandbox_path = steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(sandbox_dir_ellisbury()));
+    let sandbox_path = crate::steam::get_wine_appdata_local_dir(STEAM_GAME_ID).join(PathBuf::from_iter(sandbox_dir_ellisbury()));
     match sandbox_path.is_file() {
         true => Some(sandbox_path.into_os_string()),
         false => None
