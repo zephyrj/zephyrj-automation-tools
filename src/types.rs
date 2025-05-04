@@ -86,6 +86,41 @@ impl Display for BlockConfig {
 }
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
+pub enum BlockType {
+    Inline,
+    V60Degree,
+    V90Degree,
+    Boxer,
+    Unknown(String)
+}
+
+impl FromStr for BlockType {
+    type Err = std::convert::Infallible;
+
+    fn from_str(s: &str) -> Result<BlockType, std::convert::Infallible> {
+        match s {
+            "EngBlock_Inl_Name" => Ok(BlockType::Inline),
+            "EngBlock_V60_Name" => Ok(BlockType::V60Degree),
+            "EngBlock_V90_Name" => Ok(BlockType::V90Degree),
+            "EngBlock_Boxer_Name" => Ok(BlockType::Boxer),
+            _ => Ok(BlockType::Unknown(s.to_string())),
+        }
+    }
+}
+
+impl Display for BlockType {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            BlockType::Inline => write!(f, "Inline"),
+            BlockType::V60Degree => write!(f, "60° V"),
+            BlockType::V90Degree => write!(f, "90° V"),
+            BlockType::Boxer => write!(f, "Boxer"),
+            BlockType::Unknown(s) => write!(f, "{}", s)
+        }
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub enum HeadConfig {
     OHV,
     SOHC,
@@ -171,6 +206,8 @@ impl Display for Valves {
 pub enum AspirationType {
     NA,
     Turbo,
+    SuperCharged,
+    TwinCharged,
     Unknown(String)
 }
 
@@ -181,6 +218,8 @@ impl FromStr for AspirationType {
         match s {
             "Aspiration_Natural_Name" => Ok(AspirationType::NA),
             "Aspiration_Turbo_Name" => Ok(AspirationType::Turbo),
+            "Aspiration_Supercharger_Name" => Ok(AspirationType::SuperCharged),
+            "Aspiration_Twin_Charged_Name" => Ok(AspirationType::TwinCharged),
             _ => Ok(AspirationType::Unknown(s.to_string())),
         }
     }
@@ -191,6 +230,8 @@ impl Display for AspirationType {
         match self {
             AspirationType::NA => write!(f, "Naturally Aspirated"),
             AspirationType::Turbo => write!(f, "Turbocharged"),
+            AspirationType::SuperCharged => write!(f, "Supercharged"),
+            AspirationType::TwinCharged => write!(f, "TwinCharged"),
             AspirationType::Unknown(s) => write!(f, "{}", s),
         }
     }
