@@ -41,6 +41,27 @@ pub enum BlockConfig {
     Unknown(String)
 }
 
+impl BlockConfig {
+    pub fn cylinders(&self) -> u16 {
+        match self {
+            BlockConfig::V16_90 => 16,
+            BlockConfig::V10_90 => 10,
+            BlockConfig::V8_90 => 8,
+            BlockConfig::V6_90 => 6,
+            BlockConfig::V12_60 => 12,
+            BlockConfig::V8_60 => 8,
+            BlockConfig::V6_60 => 6,
+            BlockConfig::I6 => 6,
+            BlockConfig::I5 => 5,
+            BlockConfig::I4 => 4,
+            BlockConfig::I3 => 3,
+            BlockConfig::Boxer6 => 6,
+            BlockConfig::Boxer4 => 4,
+            BlockConfig::Unknown(_) => 0,
+        }
+    }
+}
+
 impl FromStr for BlockConfig {
     type Err = std::convert::Infallible;
 
