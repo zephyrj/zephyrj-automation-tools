@@ -252,7 +252,7 @@ impl Display for AspirationType {
             AspirationType::NA => write!(f, "Naturally Aspirated"),
             AspirationType::Turbo => write!(f, "Turbocharged"),
             AspirationType::SuperCharged => write!(f, "Supercharged"),
-            AspirationType::TwinCharged => write!(f, "TwinCharged"),
+            AspirationType::TwinCharged => write!(f, "Twincharged"),
             AspirationType::Unknown(s) => write!(f, "{}", s),
         }
     }
